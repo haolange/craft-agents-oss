@@ -37,7 +37,7 @@
 本文件面向需要扩展 Electron 主进程功能的开发者，系统性阐述主进程架构设计、应用生命周期管理、窗口管理系统、IPC 通信机制、平台服务抽象、错误监控集成（Sentry）、窗口状态持久化、深链接处理、证书验证、网络代理配置、浏览器面板管理、通知与徽章、自动更新、缩略图协议、大包分块传输、Shell 环境加载等主题。文档提供模块化组织、依赖注入模式、事件处理最佳实践，并给出调试技巧与常见问题排查路径。
 
 ## 项目结构
-主进程代码集中在 apps/electron/src/main 下，采用“按职责分层 + 按功能聚合”的组织方式：
+主进程代码集中在 apps/electron/src/main 下，采用"按职责分层 + 按功能聚合"的组织方式：
 - 入口与生命周期：index.ts 负责应用初始化、协议注册、代理设置、证书绕过、深链处理、窗口恢复、服务注入、Sentry 初始化等。
 - 窗口管理：window-manager.ts 提供窗口生命周期、导航拦截、关闭拦截、焦点广播、状态持久化接口。
 - 平台抽象：platform.ts 将 Electron API 抽象为可注入的 PlatformServices，便于测试与跨平台适配。
@@ -124,7 +124,7 @@ A --> O["菜单<br/>menu.ts"]
 - [apps/electron/src/main/menu.ts:1-295](file://apps/electron/src/main/menu.ts#L1-L295)
 
 ## 架构总览
-主进程采用“入口集中初始化 + 模块化职责分离 + 依赖注入 + RPC 事件驱动”的架构模式。入口负责全局初始化与服务装配，各模块通过接口解耦，通过 WindowManager、PlatformServices、EventSink 等注入点协作。
+主进程采用"入口集中初始化 + 模块化职责分离 + 依赖注入 + RPC 事件驱动"的架构模式。入口负责全局初始化与服务装配，各模块通过接口解耦，通过 WindowManager、PlatformServices、EventSink 等注入点协作。
 
 ```mermaid
 graph TB
@@ -399,9 +399,13 @@ BrowserPaneManager --> BrowserInstance : "管理多个实例"
 - [apps/electron/src/main/browser-pane-manager.ts:1-800](file://apps/electron/src/main/browser-pane-manager.ts#L1-L800)
 
 ### 日志与错误监控（logger.ts + Sentry 集成）
-- 日志：开发模式下输出到文件与控制台，生产模式禁用；提供结构化消息网关日志，独立轮转。
-- 敏感信息脱敏：请求头、面包屑中的敏感键值替换为占位符。
-- Sentry：在入口初始化，设置环境、版本、过滤器；在平台注入 captureException 回调。
+- 结构化日志记录基础设施：提供多通道日志输出，支持开发模式下的文件与控制台输出，生产模式下的精简输出。
+- 独立消息网关日志：为消息网关提供独立的日志通道，支持独立轮转和管理。
+- 敏感信息脱敏：在请求头、面包屑和日志内容中对敏感键值进行脱敏处理，保护用户隐私。
+- Sentry 集成：在应用入口处初始化 Sentry，配置环境标识、版本信息、错误过滤器等，确保错误监控的有效性。
+- 错误监控增强：改进了错误捕获机制，提供更详细的上下文信息和堆栈跟踪。
+
+**更新** 新增了结构化日志记录基础设施，改进了错误监控和日志功能，增强了敏感信息脱敏和错误上下文收集。
 
 **章节来源**
 - [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
@@ -520,8 +524,7 @@ IDX --> MN["menu.ts"]
 - 分块传输：2MB 块大小平衡往返次数与代理限制，支持重试。
 - 日志轮转：消息网关日志独立轮转，避免主日志过大影响性能。
 - 图像处理：resize 与格式转换在 nativeImage 上执行，避免额外中间文件。
-
-[本节为通用指导，无需具体文件分析]
+- 结构化日志：通过结构化日志记录基础设施，提高日志查询和分析效率。
 
 ## 故障排查指南
 - 深链接无法打开：检查协议注册、macOS open-url 事件、Windows/Linux 第二实例事件、window-manager 状态。
@@ -532,6 +535,7 @@ IDX --> MN["menu.ts"]
 - 自动更新卡住：查看 electron-updater 内部状态与缓存目录，确认 ready 状态与下载文件存在。
 - 通知/徽章无效：确认平台支持、事件路由到单客户端、macOS Canvas 绘制、Windows 任务栏覆盖。
 - Shell 环境缺失：macOS GUI 启动时未加载完整 PATH，需检查 shell-env 加载与回退路径。
+- 日志记录问题：检查结构化日志配置、敏感信息脱敏规则、Sentry 集成状态。
 
 **章节来源**
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
@@ -541,11 +545,10 @@ IDX --> MN["menu.ts"]
 - [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
+- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
 
 ## 结论
-该主进程以模块化与依赖注入为核心，结合 RPC 事件驱动与平台抽象，实现了稳定、可扩展的桌面应用主进程。通过完善的日志与监控、代理与证书配置、深链接与窗口管理、通知与徽章、自动更新与缩略图协议、分块传输与 Shell 环境加载，满足复杂业务场景需求。建议在扩展新功能时遵循现有模块边界与注入模式，保持低耦合高内聚。
-
-[本节为总结，无需具体文件分析]
+该主进程以模块化与依赖注入为核心，结合 RPC 事件驱动与平台抽象，实现了稳定、可扩展的桌面应用主进程。通过完善的日志与监控、代理与证书配置、深链接与窗口管理、通知与徽章、自动更新与缩略图协议、分块传输与 Shell 环境加载，满足复杂业务场景需求。新增的结构化日志记录基础设施进一步提升了系统的可观测性和调试效率。建议在扩展新功能时遵循现有模块边界与注入模式，保持低耦合高内聚。
 
 ## 附录
 - 最佳实践
@@ -555,10 +558,10 @@ IDX --> MN["menu.ts"]
   - 网络代理配置分阶段应用，先 Node 后 Electron。
   - 敏感信息在 Sentry 与日志中脱敏。
   - 大包传输使用分块 RPC 并设置重试与校验。
+  - 利用结构化日志记录基础设施进行统一的日志管理和分析。
 - 调试技巧
   - 开发模式下启用 electron-log 控制台输出与文件输出。
   - 使用 --debug 启动参数开启调试模式。
   - 利用 RPC 通道 __transport:status 与 __dialog:* 桥接能力观察底层状态。
   - 在 macOS 上通过 shell-env 加载完整 PATH，避免工具不可用。
-
-[本节为通用指导，无需具体文件分析]
+  - 通过结构化日志快速定位问题，利用敏感信息脱敏保护隐私数据。
