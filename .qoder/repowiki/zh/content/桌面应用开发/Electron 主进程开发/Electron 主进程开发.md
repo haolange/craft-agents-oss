@@ -21,6 +21,14 @@
 - [apps/electron/src/main/menu.ts](file://apps/electron/src/main/menu.ts)
 </cite>
 
+## 更新摘要
+**所做更改**
+- 增强了自动更新功能的错误处理和状态管理
+- 改进了窗口管理系统的生命周期和错误处理机制
+- 优化了应用启动流程和初始化顺序
+- 新增了结构化日志记录和专用日志通道
+- 增强了错误监控和调试能力
+
 ## 目录
 1. [简介](#简介)
 2. [项目结构](#项目结构)
@@ -70,24 +78,24 @@ A --> O["菜单<br/>menu.ts"]
 ```
 
 **图表来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 - [apps/electron/src/main/platform.ts:1-73](file://apps/electron/src/main/platform.ts#L1-L73)
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
 - [apps/electron/src/main/network-proxy.ts:1-175](file://apps/electron/src/main/network-proxy.ts#L1-L175)
 - [apps/electron/src/main/window-state.ts:1-91](file://apps/electron/src/main/window-state.ts#L1-L91)
 - [apps/electron/src/main/handlers/index.ts:1-23](file://apps/electron/src/main/handlers/index.ts#L1-L23)
 - [apps/electron/src/main/browser-pane-manager.ts:1-800](file://apps/electron/src/main/browser-pane-manager.ts#L1-L800)
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 - [apps/electron/src/main/thumbnail-protocol.ts:1-200](file://apps/electron/src/main/thumbnail-protocol.ts#L1-L200)
 - [apps/electron/src/main/chunked-rpc.ts:1-145](file://apps/electron/src/main/chunked-rpc.ts#L1-L145)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
 - [apps/electron/src/main/menu.ts:1-295](file://apps/electron/src/main/menu.ts#L1-L295)
 
 **章节来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
 
 ## 核心组件
 - 应用入口与生命周期：负责 Sentry 初始化、i18n、CLI 工具打包、网络代理、证书绕过、深链接注册、窗口恢复、平台注入、RPC 服务器启动、消息网关、通知服务、自动更新、缩略图协议、日志初始化等。
@@ -107,17 +115,17 @@ A --> O["菜单<br/>menu.ts"]
 - 菜单：macOS 原生菜单构建与 RPC 事件桥接。
 
 **章节来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 - [apps/electron/src/main/platform.ts:1-73](file://apps/electron/src/main/platform.ts#L1-L73)
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
 - [apps/electron/src/main/network-proxy.ts:1-175](file://apps/electron/src/main/network-proxy.ts#L1-L175)
 - [apps/electron/src/main/window-state.ts:1-91](file://apps/electron/src/main/window-state.ts#L1-L91)
 - [apps/electron/src/main/handlers/index.ts:1-23](file://apps/electron/src/main/handlers/index.ts#L1-L23)
 - [apps/electron/src/main/browser-pane-manager.ts:1-800](file://apps/electron/src/main/browser-pane-manager.ts#L1-L800)
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 - [apps/electron/src/main/thumbnail-protocol.ts:1-200](file://apps/electron/src/main/thumbnail-protocol.ts#L1-L200)
 - [apps/electron/src/main/chunked-rpc.ts:1-145](file://apps/electron/src/main/chunked-rpc.ts#L1-L145)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
@@ -164,17 +172,17 @@ IDX --> MN
 ```
 
 **图表来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 - [apps/electron/src/main/platform.ts:1-73](file://apps/electron/src/main/platform.ts#L1-L73)
 - [apps/electron/src/main/network-proxy.ts:1-175](file://apps/electron/src/main/network-proxy.ts#L1-L175)
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
 - [apps/electron/src/main/window-state.ts:1-91](file://apps/electron/src/main/window-state.ts#L1-L91)
 - [apps/electron/src/main/handlers/index.ts:1-23](file://apps/electron/src/main/handlers/index.ts#L1-L23)
 - [apps/electron/src/main/browser-pane-manager.ts:1-800](file://apps/electron/src/main/browser-pane-manager.ts#L1-L800)
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 - [apps/electron/src/main/thumbnail-protocol.ts:1-200](file://apps/electron/src/main/thumbnail-protocol.ts#L1-L200)
 - [apps/electron/src/main/chunked-rpc.ts:1-145](file://apps/electron/src/main/chunked-rpc.ts#L1-L145)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
@@ -198,6 +206,8 @@ IDX --> MN
 - 通知服务：初始化通知服务与徽章图标。
 - 日志：初始化 electron-log。
 
+**更新** 改进了应用启动流程，增加了更完善的错误处理和初始化顺序优化。
+
 ```mermaid
 sequenceDiagram
 participant App as "应用"
@@ -219,10 +229,10 @@ Main->>Main : "初始化通知/徽章/自动更新"
 ```
 
 **图表来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
 
 **章节来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
 
 ### 窗口管理系统（window-manager.ts）
 - 窗口创建：支持聚焦模式（小窗无侧边栏）、平台特定窗口选项（macOS 隐藏标题栏、Windows 透明材质）、预加载脚本、外部链接打开策略。
@@ -231,6 +241,8 @@ Main->>Main : "初始化通知/徽章/自动更新"
 - 状态持久化：保存窗口边界、聚焦模式、当前 URL，支持跨启动恢复。
 - RPC 事件推送：优先通过 RPC 推送，失败回退至 webContents.send。
 - 多实例聚焦：提供聚焦或创建窗口的方法，支持最后活动窗口回退。
+
+**更新** 增强了窗口生命周期管理和错误处理机制，改进了窗口状态持久化和多实例管理。
 
 ```mermaid
 classDiagram
@@ -252,10 +264,10 @@ class WindowManager {
 ```
 
 **图表来源**
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 
 **章节来源**
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 
 ### 平台服务抽象（platform.ts）
 - 将 Electron API 抽象为 PlatformServices，包括应用路径、资源路径、打包状态、版本、外部打开、系统深色模式、图像处理、日志、错误捕获等。
@@ -408,8 +420,8 @@ BrowserPaneManager --> BrowserInstance : "管理多个实例"
 **更新** 新增了结构化日志记录基础设施，改进了错误监控和日志功能，增强了敏感信息脱敏和错误上下文收集。
 
 **章节来源**
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
 
 ### 通知与徽章（notifications.ts）
 - 原生通知：平台支持时显示，点击后聚焦窗口并导航到会话。
@@ -425,8 +437,10 @@ BrowserPaneManager --> BrowserInstance : "管理多个实例"
 - 进度广播：下载进度与更新可用事件通过 RPC 广播。
 - 启动检查：尊重用户忽略版本，支持立即检查与自动下载。
 
+**更新** 增强了自动更新功能的状态管理、错误处理和日志记录，改进了更新安装流程和恢复机制。
+
 **章节来源**
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 
 ### 缩略图协议（thumbnail-protocol.ts）
 - 注册 thumbnail:// 方案，支持 Fetch API、CORS、流式响应。
@@ -496,8 +510,8 @@ IDX --> MN["menu.ts"]
 ```
 
 **图表来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
-- [apps/electron/src/main/window-manager.ts:1-647](file://apps/electron/src/main/window-manager.ts#L1-L647)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
+- [apps/electron/src/main/window-manager.ts:1-760](file://apps/electron/src/main/window-manager.ts#L1-L760)
 - [apps/electron/src/main/platform.ts:1-73](file://apps/electron/src/main/platform.ts#L1-L73)
 - [apps/electron/src/main/handlers/index.ts:1-23](file://apps/electron/src/main/handlers/index.ts#L1-L23)
 - [apps/electron/src/main/handlers/system.ts:1-441](file://apps/electron/src/main/handlers/system.ts#L1-L441)
@@ -506,16 +520,16 @@ IDX --> MN["menu.ts"]
 - [apps/electron/src/main/network-proxy.ts:1-175](file://apps/electron/src/main/network-proxy.ts#L1-L175)
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
 - [apps/electron/src/main/window-state.ts:1-91](file://apps/electron/src/main/window-state.ts#L1-L91)
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 - [apps/electron/src/main/thumbnail-protocol.ts:1-200](file://apps/electron/src/main/thumbnail-protocol.ts#L1-L200)
 - [apps/electron/src/main/chunked-rpc.ts:1-145](file://apps/electron/src/main/chunked-rpc.ts#L1-L145)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
 - [apps/electron/src/main/menu.ts:1-295](file://apps/electron/src/main/menu.ts#L1-L295)
 
 **章节来源**
-- [apps/electron/src/main/index.ts:1-1194](file://apps/electron/src/main/index.ts#L1-L1194)
+- [apps/electron/src/main/index.ts:1-1325](file://apps/electron/src/main/index.ts#L1-L1325)
 
 ## 性能考量
 - 窗口启动优化：ready-to-show 延迟显示，减少白屏时间；开发模式失败重试加载 Vite 服务。
@@ -537,15 +551,17 @@ IDX --> MN["menu.ts"]
 - Shell 环境缺失：macOS GUI 启动时未加载完整 PATH，需检查 shell-env 加载与回退路径。
 - 日志记录问题：检查结构化日志配置、敏感信息脱敏规则、Sentry 集成状态。
 
+**更新** 新增了自动更新相关的故障排查指南，包括更新状态检查和错误恢复机制。
+
 **章节来源**
 - [apps/electron/src/main/deep-link.ts:1-343](file://apps/electron/src/main/deep-link.ts#L1-L343)
 - [apps/electron/src/main/network-proxy.ts:1-175](file://apps/electron/src/main/network-proxy.ts#L1-L175)
 - [apps/electron/src/main/window-state.ts:1-91](file://apps/electron/src/main/window-state.ts#L1-L91)
 - [apps/electron/src/main/chunked-rpc.ts:1-145](file://apps/electron/src/main/chunked-rpc.ts#L1-L145)
-- [apps/electron/src/main/auto-update.ts:1-438](file://apps/electron/src/main/auto-update.ts#L1-L438)
+- [apps/electron/src/main/auto-update.ts:1-516](file://apps/electron/src/main/auto-update.ts#L1-L516)
 - [apps/electron/src/main/notifications.ts:1-296](file://apps/electron/src/main/notifications.ts#L1-L296)
 - [apps/electron/src/main/shell-env.ts:1-110](file://apps/electron/src/main/shell-env.ts#L1-L110)
-- [apps/electron/src/main/logger.ts:1-218](file://apps/electron/src/main/logger.ts#L1-L218)
+- [apps/electron/src/main/logger.ts:1-285](file://apps/electron/src/main/logger.ts#L1-L285)
 
 ## 结论
 该主进程以模块化与依赖注入为核心，结合 RPC 事件驱动与平台抽象，实现了稳定、可扩展的桌面应用主进程。通过完善的日志与监控、代理与证书配置、深链接与窗口管理、通知与徽章、自动更新与缩略图协议、分块传输与 Shell 环境加载，满足复杂业务场景需求。新增的结构化日志记录基础设施进一步提升了系统的可观测性和调试效率。建议在扩展新功能时遵循现有模块边界与注入模式，保持低耦合高内聚。
